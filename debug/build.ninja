@@ -52,30 +52,7 @@ build cmake_object_order_depends_target_Lab4_2: phony || CMakeFiles/Lab4_2.dir
 build CMakeFiles/Lab4_2.dir/Lab4_2.cpp.o: CXX_COMPILER__Lab4_2_Debug /home/kristofer/2_sem_prog/Lab4_2/Lab4_2.cpp || cmake_object_order_depends_target_Lab4_2
   DEP_FILE = CMakeFiles/Lab4_2.dir/Lab4_2.cpp.o.d
   FLAGS = -g
-  OBJECT_DIR = CMakeFiles/Lab4_2.dir
-  OBJECT_FILE_DIR = CMakeFiles/Lab4_2.dir
-  TARGET_COMPILE_PDB = CMakeFiles/Lab4_2.dir/
-  TARGET_PDB = Lab4_2.pdb
-
-build CMakeFiles/Lab4_2.dir/draw_func.cpp.o: CXX_COMPILER__Lab4_2_Debug /home/kristofer/2_sem_prog/Lab4_2/draw_func.cpp || cmake_object_order_depends_target_Lab4_2
-  DEP_FILE = CMakeFiles/Lab4_2.dir/draw_func.cpp.o.d
-  FLAGS = -g
-  OBJECT_DIR = CMakeFiles/Lab4_2.dir
-  OBJECT_FILE_DIR = CMakeFiles/Lab4_2.dir
-  TARGET_COMPILE_PDB = CMakeFiles/Lab4_2.dir/
-  TARGET_PDB = Lab4_2.pdb
-
-build CMakeFiles/Lab4_2.dir/print_func.cpp.o: CXX_COMPILER__Lab4_2_Debug /home/kristofer/2_sem_prog/Lab4_2/print_func.cpp || cmake_object_order_depends_target_Lab4_2
-  DEP_FILE = CMakeFiles/Lab4_2.dir/print_func.cpp.o.d
-  FLAGS = -g
-  OBJECT_DIR = CMakeFiles/Lab4_2.dir
-  OBJECT_FILE_DIR = CMakeFiles/Lab4_2.dir
-  TARGET_COMPILE_PDB = CMakeFiles/Lab4_2.dir/
-  TARGET_PDB = Lab4_2.pdb
-
-build CMakeFiles/Lab4_2.dir/table_func.cpp.o: CXX_COMPILER__Lab4_2_Debug /home/kristofer/2_sem_prog/Lab4_2/table_func.cpp || cmake_object_order_depends_target_Lab4_2
-  DEP_FILE = CMakeFiles/Lab4_2.dir/table_func.cpp.o.d
-  FLAGS = -g
+  INCLUDES = -I/home/kristofer/2_sem_prog/Lab4_2/Lib/headers
   OBJECT_DIR = CMakeFiles/Lab4_2.dir
   OBJECT_FILE_DIR = CMakeFiles/Lab4_2.dir
   TARGET_COMPILE_PDB = CMakeFiles/Lab4_2.dir/
@@ -84,6 +61,7 @@ build CMakeFiles/Lab4_2.dir/table_func.cpp.o: CXX_COMPILER__Lab4_2_Debug /home/k
 build CMakeFiles/Lab4_2.dir/lib_strings.cpp.o: CXX_COMPILER__Lab4_2_Debug /home/kristofer/2_sem_prog/Lab4_2/lib_strings.cpp || cmake_object_order_depends_target_Lab4_2
   DEP_FILE = CMakeFiles/Lab4_2.dir/lib_strings.cpp.o.d
   FLAGS = -g
+  INCLUDES = -I/home/kristofer/2_sem_prog/Lab4_2/Lib/headers
   OBJECT_DIR = CMakeFiles/Lab4_2.dir
   OBJECT_FILE_DIR = CMakeFiles/Lab4_2.dir
   TARGET_COMPILE_PDB = CMakeFiles/Lab4_2.dir/
@@ -92,6 +70,7 @@ build CMakeFiles/Lab4_2.dir/lib_strings.cpp.o: CXX_COMPILER__Lab4_2_Debug /home/
 build CMakeFiles/Lab4_2.dir/lib_classes.cpp.o: CXX_COMPILER__Lab4_2_Debug /home/kristofer/2_sem_prog/Lab4_2/lib_classes.cpp || cmake_object_order_depends_target_Lab4_2
   DEP_FILE = CMakeFiles/Lab4_2.dir/lib_classes.cpp.o.d
   FLAGS = -g
+  INCLUDES = -I/home/kristofer/2_sem_prog/Lab4_2/Lib/headers
   OBJECT_DIR = CMakeFiles/Lab4_2.dir
   OBJECT_FILE_DIR = CMakeFiles/Lab4_2.dir
   TARGET_COMPILE_PDB = CMakeFiles/Lab4_2.dir/
@@ -105,8 +84,9 @@ build CMakeFiles/Lab4_2.dir/lib_classes.cpp.o: CXX_COMPILER__Lab4_2_Debug /home/
 #############################################
 # Link the executable Lab4_2
 
-build Lab4_2: CXX_EXECUTABLE_LINKER__Lab4_2_Debug CMakeFiles/Lab4_2.dir/Lab4_2.cpp.o CMakeFiles/Lab4_2.dir/draw_func.cpp.o CMakeFiles/Lab4_2.dir/print_func.cpp.o CMakeFiles/Lab4_2.dir/table_func.cpp.o CMakeFiles/Lab4_2.dir/lib_strings.cpp.o CMakeFiles/Lab4_2.dir/lib_classes.cpp.o
+build Lab4_2: CXX_EXECUTABLE_LINKER__Lab4_2_Debug CMakeFiles/Lab4_2.dir/Lab4_2.cpp.o CMakeFiles/Lab4_2.dir/lib_strings.cpp.o CMakeFiles/Lab4_2.dir/lib_classes.cpp.o | ../Lib/liblibrary.a
   FLAGS = -g
+  LINK_LIBRARIES = ../Lib/liblibrary.a
   OBJECT_DIR = CMakeFiles/Lab4_2.dir
   POST_BUILD = :
   PRE_LINK = :

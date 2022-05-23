@@ -10,6 +10,7 @@
 #include "definitions.h"
 #include "lib_classes.h"
 
+using namespace lib_classes;
 
 /* Функция вызова исключения связанного с выделением памяти для передачи в set_new_handler() */
 void NewError();
