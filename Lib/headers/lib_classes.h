@@ -109,6 +109,7 @@ namespace lib_classes {
         String _memory;
         String _storage;
         String _display;
-        String *_attributes[PC_const::NUMB_OF_ATTR]{&_id, &_cpu_type, &_cpu_freq, &_memory, &_storage, &_display};
+        String *_attributes[PC_const::NUMB_OF_ATTR]{&_id, &_cpu_type, &_cpu_freq, &_memory,
+                                                    &_storage, &_display};
     };
 }
