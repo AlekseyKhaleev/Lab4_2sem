@@ -11,7 +11,7 @@ namespace lib_strings {
     TCharArray::TCharArray() = default; // Конструктор по умолчанию, не принимает аргументов
 
     TCharArray::TCharArray(const char *string) { // Конструктор принимает аргумент типа const char*
-        size_of_str = strlen(string)+1;       // определение длины будущего массива (+1 для нуль-терминатора)
+        size_of_str = strlen(string) + 1;       // определение длины будущего массива (+1 для нуль-терминатора)
         _str = new char[size_of_str];            // выделение памяти
         if (_str) {
             /* Посимвольное копирование данных в новую память */
@@ -20,19 +20,20 @@ namespace lib_strings {
             }
         }
     }
+
     TCharArray::TCharArray(int digit) {     // Конструктор принимает аргумент типа int
-        int len=0; // счетчик - длина будущей строки (и количество символов в числе digit)
+        int len = 0; // счетчик - длина будущей строки (и количество символов в числе digit)
         int tmp = digit; // временная переменная для хранения исходного значения
         /* Определяем количество символов в полученном аргументе */
-        do{
+        do {
             len++; // увеличиваем значение счетчика
-            digit/=10; // делим нацело на 10
-        }while(digit != 0); //пока аргумент не станет равным 0
-        size_of_str = len+1; // присваиваем значение соответствующему атрибуту (+1 для нуль-терминатора)
+            digit /= 10; // делим нацело на 10
+        } while (digit != 0); //пока аргумент не станет равным 0
+        size_of_str = len + 1; // присваиваем значение соответствующему атрибуту (+1 для нуль-терминатора)
         _str = new char[size_of_str]; // выделяем память
         if (_str) {
             /* Посимвольно копируем цифры аргумента */
-            for (int i = len-1; i >= 0; i--) { // Присваиваем с конца
+            for (int i = len - 1; i >= 0; i--) { // Присваиваем с конца
                 // остаток от деления на 10 - есть последняя значащая цифра
                 _str[i] = char((tmp % 10) + 48); // цифра (0-9) + 48 - есть код числа в соответствии с таблицей ASCII
                 tmp /= 10; // для продвижения по числу отбрасываем последнюю цифру с помощью целочисленного деления
@@ -42,7 +43,10 @@ namespace lib_strings {
     }
 
     // Деструктор
-    TCharArray::~TCharArray() { delete[] _str; } // при уничтожении объекта освобождаем память выделенную под _str
+    TCharArray::~TCharArray() {
+        delete[] _str;
+        _str = nullptr;
+    } // при уничтожении объекта освобождаем память выделенную под _str
 
     // Методы
     char *TCharArray::begin() { return _str; } // возвращает указатель на начало массива
@@ -61,6 +65,40 @@ namespace lib_strings {
         return _str[index];
     }
 
+    /**************************************************************************************************************
+    *             "Правило 3/5/0" (деструктор с освобождением памяти в начале описания класса)                    *
+    **************************************************************************************************************/
+
+    // Конструктор копирования
+    TCharArray::TCharArray(const TCharArray &other) : _str(new char[other.size_of_str]),
+                                                      size_of_str(other.size_of_str) {
+        std::strcpy(_str, other._str);
+    }
+
+    // Конструктор присваивания копии
+    TCharArray &TCharArray::operator=(TCharArray const &other) {
+        TCharArray copy(other);
+        std::swap(*this, copy);
+        return *this;
+    }
+
+    // Конструктор перемещения
+    TCharArray::TCharArray(TCharArray &&that) noexcept: _str(nullptr), size_of_str(0) {
+        std::swap(*this, that);
+    }
+
+    // Конструктор назначения перемещения
+    TCharArray &TCharArray::operator=(TCharArray &&that) noexcept {
+        std::swap(*this, that);
+        return *this;
+    }
+
+    // Перегрузка функции перемещения
+    void swap(TCharArray &lhs, TCharArray &rhs) noexcept {
+        std::swap(lhs._str, rhs._str);
+        std::swap(lhs.size_of_str, rhs.size_of_str);
+    }
+
     /*****************************************************************************************************************/
     /*                                        String class                                                           */
     /*****************************************************************************************************************/
@@ -75,28 +113,29 @@ namespace lib_strings {
     String::String(int digit) : TCharArray(digit) {}
 
     // Методы
-    const char* String::get() {
+    const char *String::get() {
         return _str; // возвращает указатель на начало массива _str
     }
+
     size_t String::get_size() {
         return size_of_str; // возвращает размер массива _str
     }
 
     //                                          Перегрузка операторов
 
-    String& String::operator=(int digit){ // присваивание целого числа
-        int len=0; // Счетчик - длина будущей строки (и количество символов в числе digit)
+    String &String::operator=(int digit) { // присваивание целого числа
+        int len = 0; // Счетчик - длина будущей строки (и количество символов в числе digit)
         int tmp = digit; // временная переменная для хранения исходного значения
         /* Определяем количество символов в полученном аргументе */
-        do{
+        do {
             len++; // увеличиваем значение счетчика
-            digit/=10; // делим нацело на 10
-        }while(digit != 0); //пока аргумент не станет равным 0
-        size_of_str = len+1; // присваиваем значение соответствующему атрибуту (+1 для нуль-терминатора)
+            digit /= 10; // делим нацело на 10
+        } while (digit != 0); //пока аргумент не станет равным 0
+        size_of_str = len + 1; // присваиваем значение соответствующему атрибуту (+1 для нуль-терминатора)
         _str = new char[size_of_str]; // выделяем память
         if (_str) {
             /* Посимвольно копируем цифры аргумента */
-            for (int i = len-1; i >= 0; i--) { // Присваиваем с конца
+            for (int i = len - 1; i >= 0; i--) { // Присваиваем с конца
                 // остаток от деления на 10 - есть последняя значащая цифра
                 _str[i] = char((tmp % 10) + 48); // цифра (0-9) + 48 - есть код числа в соответствии с таблицей ASCII
                 tmp /= 10; // для продвижения по числу отбрасываем последнюю цифру с помощью целочисленного деления
@@ -106,7 +145,7 @@ namespace lib_strings {
         return *this;
     }
 
-    String& String::operator=(const char* string) { // Присваиваем аргумент типа const char*
+    String &String::operator=(const char *string) { // Присваиваем аргумент типа const char*
         size_of_str = strlen(string) + 1; // определение длины будущего массива (+1 для нуль-терминатора)
         _str = new char[size_of_str]; // выделение памяти
         if (_str) {
@@ -118,7 +157,7 @@ namespace lib_strings {
         return *this;
     }
 
-    String& String::operator=(char* string){ // Присваиваем аргумент типа char*
+    String &String::operator=(char *string) { // Присваиваем аргумент типа char*
         size_of_str = strlen(string) + 1; // определение длины будущего массива (+1 для нуль-терминатора)
         _str = new char[size_of_str]; // выделение памяти
         if (_str) {
@@ -139,10 +178,10 @@ namespace lib_strings {
         char *new_str = str._str; // определяем новый указатель на память для избежания потери введенных данных
         str._str = new char[str.size_of_str]; // выделяем новую память в точности необходимого размера
         /* Посимвольное копирование элементов в новую память */
-        for(int i= 0; i < str.size_of_str - 1; i++){
+        for (int i = 0; i < str.size_of_str - 1; i++) {
             str._str[i] = new_str[i];
         }
-        str._str[str.size_of_str-1] = '\0'; // добавляем нуль-терминатор в конец
+        str._str[str.size_of_str - 1] = '\0'; // добавляем нуль-терминатор в конец
         delete[] new_str; // освобождаем память размера MAX_CHARS
         return input;
     }
@@ -176,6 +215,7 @@ namespace lib_strings {
             delete[] old_str; // освобождаем "старую" память
         }
     }
+
     /*                                   Перегрузка операторов сравнения                                            */
 
     bool operator==(String &left, String &right) { // перегрузка оператора равенства
